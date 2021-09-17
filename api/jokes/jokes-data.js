@@ -12,6 +12,6 @@ const jokes = [
     "id": "08xHQCdx5Ed",
     "joke": "Why didn’t the skeleton cross the road? Because he had no guts."
   },
-];
+]
 
-module.exports = jokes;
+module.exports = jokes
