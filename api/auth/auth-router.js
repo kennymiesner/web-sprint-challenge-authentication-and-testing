@@ -17,7 +17,7 @@ router.post('/register', validateUser, checkUserUnique, async (req, res, next) =
   }
 })
 
-router.post('/login', checkUserExists, (req, res, next) => {
+router.post('/login', validateUser, checkUserExists, (req, res, next) => {
   const { password } = req.body
   if (bcrypt.compareSync(password, req.user.password)) {
     const token = buildToken(req.user)
