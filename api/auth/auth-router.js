@@ -1,9 +1,11 @@
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
+const checkUserExists = require('../middleware/checkUserExists')
+const checkUserUnique = require('../middleware/checkUserUnique')
 const User = require('../users/users-model')
 const buildToken = require('../middleware/build-token')
 
-router.post('/register', async (req, res, next) => {
+router.post('/register', checkUserUnique, async (req, res, next) => {
   try {
     const { username, password } = req.body
     const hash = bcrypt.hashSync(password, 8)
@@ -14,7 +16,7 @@ router.post('/register', async (req, res, next) => {
   }
 })
 
-router.post('/login', (req, res, next) => {
+router.post('/login', checkUserExists, (req, res, next) => {
   const { password } = req.body
   if (bcrypt.compareSync(password, req.user.password)) {
     const token = buildToken(req.user)
